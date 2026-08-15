@@ -1,17 +1,7 @@
-# IQP Orders
+# International Quality Parts — Web V7
 
-Mobile-friendly order portal for International Quality Parts. Customers can search the WIX filter catalog, add quantities to a cart, enter company details, and save or print the completed order as a PDF. The site does not send email automatically.
+Browser version of the V7 WIX Stock Order Portal. It preserves the black, gold, and red program interface, IQP/WIX branding, representative product images, and the full 954-item catalog with SELL PRICE.
 
-## Catalog data
+Orders remain on the customer's device. At checkout, the browser opens a print-ready order; choose **Save as PDF**. No email is sent automatically.
 
-Place the WIX price-list rows in `data/products.csv` with these columns:
-
-```csv
-part_number,description,sell_price,image_url
-```
-
-`sell_price` is the customer-facing price. `image_url` is optional. CSV values containing commas should be enclosed in double quotes.
-
-## Hosting
-
-The project is a static Progressive Web App and can be hosted with GitHub Pages or any static web host. HTTPS enables offline caching and installation to a phone Home Screen.
+For GitHub Pages, upload every file in this folder to the repository root and publish the `main` branch from `/(root)`.

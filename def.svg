@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="340" viewBox="0 0 400 340">
+<rect width="400" height="340" fill="white"/>
+<rect x="105" y="58" width="190" height="220" rx="18" fill="#eee" stroke="#202020" stroke-width="9"/><line x1="125" y1="75" x2="125" y2="260" stroke="#c69214" stroke-width="7"/><line x1="143" y1="75" x2="143" y2="260" stroke="#c69214" stroke-width="7"/><line x1="161" y1="75" x2="161" y2="260" stroke="#c69214" stroke-width="7"/><line x1="179" y1="75" x2="179" y2="260" stroke="#c69214" stroke-width="7"/><line x1="197" y1="75" x2="197" y2="260" stroke="#c69214" stroke-width="7"/><line x1="215" y1="75" x2="215" y2="260" stroke="#c69214" stroke-width="7"/><line x1="233" y1="75" x2="233" y2="260" stroke="#c69214" stroke-width="7"/><line x1="251" y1="75" x2="251" y2="260" stroke="#c69214" stroke-width="7"/><line x1="269" y1="75" x2="269" y2="260" stroke="#c69214" stroke-width="7"/>
+<text x="200" y="322" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#111">DEF FILTER</text>
+</svg>
