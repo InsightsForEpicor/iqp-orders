@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#143b8f">
+  <meta name="description" content="International Quality Parts online order portal">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="IQP Orders">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/iqp-logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/iqp-logo.svg">
+  <link rel="stylesheet" href="styles.css">
+  <title>IQP Orders</title>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#catalog" aria-label="International Quality Parts home">
+      <img src="assets/iqp-logo.svg" alt="IQP">
+      <span><strong>International Quality Parts</strong><small>WIX Filters Order Portal</small></span>
+    </a>
+    <button id="cartButton" class="cart-button" type="button" aria-controls="cartDrawer" aria-expanded="false">
+      Cart <span id="cartCount" aria-label="items in cart">0</span>
+    </button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="eyebrow">DEPENDABLE FILTRATION • SIMPLE ORDERING</p>
+      <h1>Find it. Add it. Save the order.</h1>
+      <p>Search our WIX filter catalog by part number or description, set quantities, and create a PDF order from any device.</p>
+      <label class="search-box" for="searchInput">
+        <span aria-hidden="true">⌕</span>
+        <input id="searchInput" type="search" placeholder="Search part number or description" autocomplete="off">
+      </label>
+    </section>
+
+    <section id="catalog" class="catalog-section" aria-labelledby="catalogTitle">
+      <div class="section-heading">
+        <div><p class="eyebrow">WIX FILTERS</p><h2 id="catalogTitle">Product catalog</h2></div>
+        <p id="resultCount" aria-live="polite">Loading catalog…</p>
+      </div>
+      <div id="catalogNotice" class="notice" hidden></div>
+      <div id="productGrid" class="product-grid" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <aside id="cartDrawer" class="cart-drawer" aria-label="Order cart" aria-hidden="true">
+    <div class="drawer-header"><div><p class="eyebrow">YOUR ORDER</p><h2>Order summary</h2></div><button id="closeCart" class="icon-button" type="button" aria-label="Close cart">×</button></div>
+    <div id="cartItems" class="cart-items"></div>
+    <form id="customerForm" class="customer-form">
+      <h3>Customer information</h3>
+      <label>Company<input name="company" required autocomplete="organization"></label>
+      <div class="field-row"><label>Contact<input name="contact" required autocomplete="name"></label><label>Phone<input name="phone" required autocomplete="tel"></label></div>
+      <label>Email<input name="email" type="email" autocomplete="email"></label>
+      <label>PO / Notes<textarea name="notes" rows="3"></textarea></label>
+      <div class="totals"><span>Order total</span><strong id="cartTotal">$0.00</strong></div>
+      <button id="saveOrder" class="primary-button" type="submit">Save / Print PDF</button>
+      <p class="form-note">Your order stays on this device. Saving opens your browser’s print dialog; choose “Save as PDF.” No email is sent automatically.</p>
+    </form>
+  </aside>
+  <div id="scrim" class="scrim" hidden></div>
+
+  <footer><strong>International Quality Parts</strong><span>4330 E 10th Ct, Hialeah, FL 33013</span><a href="tel:+17863551606">786-355-1606</a><a href="mailto:internationalqualityparts@gmail.com">internationalqualityparts@gmail.com</a></footer>
+  <script src="app.js" defer></script>
+</body>
+</html>
