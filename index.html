@@ -33,8 +33,12 @@ a{text-decoration:none;color:inherit}
 .brandtext h1{margin:0;font-size:28px;line-height:1;font-weight:900;letter-spacing:.4px}
 .brandtext div{margin-top:6px;font-size:12px;color:#ebd187;text-transform:uppercase;letter-spacing:2px;font-weight:700}
 .contactbar{display:flex;gap:18px;flex-wrap:wrap;justify-content:flex-end;font-size:13px}
-.contactpill{padding:9px 12px;border:1px solid #3a3a3f;border-radius:999px;background:#141418}
+.contactpill{display:inline-flex;align-items:center;gap:4px;padding:9px 12px;border:1px solid #3a3a3f;border-radius:999px;background:#141418;color:#fff;cursor:pointer}
+.contactpill:hover,.contactpill:focus-visible{border-color:var(--gold2);outline:none}
 .contactpill b{color:var(--gold2)}
+.copy-email{border:0;background:transparent;color:var(--gold2);padding:0 2px;font-weight:900;cursor:pointer;text-decoration:underline}
+.header-cart{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;background:linear-gradient(180deg,#c91f29,#a80e17);color:#fff;font-weight:900;cursor:pointer;padding:9px 14px}
+.header-cart span{display:inline-grid;place-items:center;min-width:24px;height:24px;padding:0 6px;border-radius:999px;background:var(--gold2);color:#111}
 .goldline{height:4px;background:linear-gradient(90deg,var(--gold) 0%,var(--gold2) 50%,var(--gold) 100%)}
 
 .hero{
@@ -200,9 +204,10 @@ a{text-decoration:none;color:inherit}
       </div>
     </div>
     <div class="contactbar">
-      <div class="contactpill"><b>Phone:</b> 786-355-1606</div>
-      <div class="contactpill"><b>Address:</b> 4330 E 10th Ct, Hialeah, FL 33013</div>
-      <div class="contactpill"><b>Email:</b> internationalqualityparts@gmail.com</div>
+      <a class="contactpill" href="tel:+17863551606" aria-label="Call International Quality Parts at 786-355-1606"><b>Phone:</b> 786-355-1606</a>
+      <a class="contactpill" href="https://maps.apple.com/?q=4330%20E%2010th%20Ct%2C%20Hialeah%2C%20FL%2033013" target="_blank" rel="noopener noreferrer" aria-label="Open International Quality Parts address in Maps"><b>Address:</b> 4330 E 10th Ct, Hialeah, FL 33013</a>
+      <span class="contactpill"><a href="mailto:internationalqualityparts@gmail.com" aria-label="Email International Quality Parts"><b>Email:</b> internationalqualityparts@gmail.com</a> <button class="copy-email" type="button" onclick="copyEmail(event)" aria-label="Copy email address">Copy</button></span>
+      <button class="header-cart" type="button" onclick="openCart()" aria-label="Open shopping cart">CART <span id="headerCartCount">0</span></button>
     </div>
   </div>
   <div class="goldline"></div>
@@ -355,7 +360,7 @@ function addToCart(part){
   if(!cart[part]) cart[part]={...p,qty:0}; cart[part].qty+=q; saveCart(); updateCart();
 }
 function updateCart(){
-  const items=Object.values(cart); $("cartCount").textContent=items.reduce((a,x)=>a+x.qty,0);
+  const items=Object.values(cart), count=items.reduce((a,x)=>a+x.qty,0); $("cartCount").textContent=count; $("headerCartCount").textContent=count;
   $("cartTotal").textContent=money(items.reduce((a,x)=>a+x.qty*x.price,0));
   const root=$("cartItems");root.innerHTML=items.length?"":"<div class='empty'>Your cart is empty.</div>";
   items.forEach(x=>{
@@ -371,6 +376,12 @@ function restoreCart(){try{cart=JSON.parse(localStorage.getItem("iqp-v7-cart"))|
 function setQty(part,v){cart[part].qty=Math.max(1,parseInt(v||1));saveCart();updateCart()}
 function removeItem(part){delete cart[part];saveCart();updateCart()}
 function openCart(){$("drawer").classList.add("open");$("overlay").classList.add("show")}
+async function copyEmail(event){
+  event.preventDefault();event.stopPropagation();
+  const button=event.currentTarget, email="internationalqualityparts@gmail.com";
+  try{await navigator.clipboard.writeText(email);button.textContent="Copied!";setTimeout(()=>button.textContent="Copy",1600)}
+  catch{window.location.href=`mailto:${email}`}
+}
 function openCheckout(){
   if(!Object.keys(cart).length){alert("Add at least one product to your cart.");return}
   $("drawer").classList.remove("open");$("checkoutModal").classList.add("show");$("overlay").classList.add("show");
