@@ -107,9 +107,9 @@ a{text-decoration:none;color:inherit}
   background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;
   box-shadow:0 3px 16px rgba(0,0,0,.06);display:flex;flex-direction:column
 }
-.fitment-wrap{padding:15px;background:linear-gradient(135deg,#171719,#09090a);border-bottom:4px solid var(--gold)}
-.fitment-link{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#fff;border:1px solid #45454a;border-radius:12px;padding:13px 14px;font-size:13px;font-weight:900;transition:.15s}
-.fitment-link:hover{border-color:var(--gold2);background:#222226}.fitment-link span{color:var(--gold2);font-size:18px}
+.crossref-wrap{padding:15px;background:linear-gradient(135deg,#171719,#09090a);border-bottom:4px solid var(--gold)}
+.crossref-link{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#fff;border:1px solid #45454a;border-radius:12px;padding:13px 14px;font-size:13px;font-weight:900;transition:.15s}
+.crossref-link:hover{border-color:var(--gold2);background:#222226}.crossref-link span{color:var(--gold2);font-size:18px}
 .cardbody{padding:14px}
 .cat{font-size:11px;color:#9a7700;font-weight:900;letter-spacing:1px;text-transform:uppercase}
 .part{font-size:21px;font-weight:900;margin:5px 0 6px}
@@ -229,7 +229,7 @@ a{text-decoration:none;color:inherit}
       <div class="info-card">
         <h3>Built for easy ordering</h3>
         <p>
-          Search by part number or description, open the official WIX application list, add quantities to your cart,
+          Search by part number or description, open the official WIX cross-reference lookup, add quantities to your cart,
           enter your company information, and submit the stock order.
         </p>
       </div>
@@ -265,7 +265,7 @@ a{text-decoration:none;color:inherit}
   <button class="cartbtn" onclick="openCart()">Cart (<span id="cartCount">0</span>)</button>
 </section>
 
-<div class="note"><b>Applications:</b> Select “VIEW WIX APPLICATIONS” on any product to see its official make, model, year, and engine fitment information on the WIX Filters website.</div>
+<div class="note"><b>Cross-reference:</b> Select “WIX CROSS-REFERENCE” on any product to open the official WIX lookup for that exact part number.</div>
 <div class="summary" id="summary">Loading WIX price list…</div>
 <main class="grid" id="grid"></main>
 
@@ -313,7 +313,7 @@ function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",
 function js(s){return String(s).replace(/\\/g,"\\\\").replace(/'/g,"\\'")}
 function safeId(s){return String(s).replace(/[^a-zA-Z0-9]/g,"_")}
 
-function wixApplicationsUrl(part){return `https://www2.wixfilters.com/Lookup/PartApplications.aspx?Part=${encodeURIComponent(part)}`}
+function wixCrossReferenceUrl(part){return `https://www2.wixfilters.com/Lookup/Exactmatch.aspx?PartNo=${encodeURIComponent(part)}`}
 
 async function init(){
   products=await fetch("products.json").then(r=>r.json());
@@ -334,7 +334,7 @@ function render(){
   filtered.forEach(p=>{
     const card=document.createElement("article");card.className="card";
     card.innerHTML=`
-      <div class="fitment-wrap"><a class="fitment-link" href="${wixApplicationsUrl(p.part)}" target="_blank" rel="noopener noreferrer" aria-label="View official WIX applications for ${esc(p.part)}">VIEW WIX APPLICATIONS <span aria-hidden="true">↗</span></a></div>
+      <div class="crossref-wrap"><a class="crossref-link" href="${wixCrossReferenceUrl(p.part)}" target="_blank" rel="noopener noreferrer" aria-label="Open official WIX cross-reference for ${esc(p.part)}">WIX CROSS-REFERENCE <span aria-hidden="true">↗</span></a></div>
       <div class="cardbody">
         <div class="cat">${esc(p.category)}</div>
         <div class="part">${esc(p.part)}</div>
