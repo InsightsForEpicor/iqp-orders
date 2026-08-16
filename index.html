@@ -107,16 +107,9 @@ a{text-decoration:none;color:inherit}
   background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;
   box-shadow:0 3px 16px rgba(0,0,0,.06);display:flex;flex-direction:column
 }
-.photo-wrap{
-  position:relative;background:linear-gradient(180deg,#fafafa,#efeff2);padding:12px;min-height:190px;display:flex;align-items:center;justify-content:center
-}
-.photo-wrap img{
-  width:100%;max-width:245px;max-height:165px;object-fit:contain;cursor:zoom-in;filter:drop-shadow(0 6px 10px rgba(0,0,0,.14))
-}
-.rep-badge{
-  position:absolute;top:10px;left:10px;background:#111;color:#fff;padding:6px 10px;border-radius:999px;
-  font-size:10px;font-weight:800;letter-spacing:.8px
-}
+.crossref-wrap{padding:15px;background:linear-gradient(135deg,#171719,#09090a);border-bottom:4px solid var(--gold)}
+.crossref-link{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#fff;border:1px solid #45454a;border-radius:12px;padding:13px 14px;font-size:13px;font-weight:900;transition:.15s}
+.crossref-link:hover{border-color:var(--gold2);background:#222226}.crossref-link span{color:var(--gold2);font-size:18px}
 .cardbody{padding:14px}
 .cat{font-size:11px;color:#9a7700;font-weight:900;letter-spacing:1px;text-transform:uppercase}
 .part{font-size:21px;font-weight:900;margin:5px 0 6px}
@@ -161,8 +154,6 @@ a{text-decoration:none;color:inherit}
 .status{padding:12px;border-radius:8px;margin-top:12px;display:none}
 .status.good{display:block;background:#e9f8ee;color:#176b31}
 .status.bad{display:block;background:#ffecee;color:#9a1320}
-.imgmodal img{width:100%;max-height:74vh;object-fit:contain;background:#fff}
-.imgmodal .modalbody{padding:8px}
 .empty{text-align:center;color:#777;padding:35px 10px}
 .print-order{display:none}
 
@@ -238,7 +229,7 @@ a{text-decoration:none;color:inherit}
       <div class="info-card">
         <h3>Built for easy ordering</h3>
         <p>
-          Search by part number or description, click on the filter image to enlarge it, add quantities to your cart,
+          Search by part number or description, open the official WIX cross-reference lookup, add quantities to your cart,
           enter your company information, and submit the stock order.
         </p>
       </div>
@@ -274,10 +265,7 @@ a{text-decoration:none;color:inherit}
   <button class="cartbtn" onclick="openCart()">Cart (<span id="cartCount">0</span>)</button>
 </section>
 
-<div class="note">
-  <b>Image note:</b> The site now uses representative WIX filter images found online by filter type.
-  If an exact image is not available for a product, the WIX logo is shown as the fallback image.
-</div>
+<div class="note"><b>Cross-reference:</b> Select “WIX CROSS-REFERENCE” on any product to open the official WIX lookup for that exact part number.</div>
 <div class="summary" id="summary">Loading WIX price list…</div>
 <main class="grid" id="grid"></main>
 
@@ -317,40 +305,15 @@ a{text-decoration:none;color:inherit}
 
 <section class="print-order" id="printOrder" aria-hidden="true"></section>
 
-<section class="modal imgmodal" id="imageModal">
-  <div class="modalhead"><b id="imageTitle">Filter Image</b><button class="x" onclick="closeAll()">×</button></div>
-  <div class="modalbody"><img id="largeImage" alt="Filter image"></div>
-</section>
-
 <script>
 let products=[], filtered=[], cart={};
-const productImageByCategory={
-  "Air Filters":"air-filter.jpg",
-  "Fuel Filters":"fuel-filter.jpg",
-  "Oil / Lube Filters":"oil-filter.jpg",
-  "Cabin Filters":"cabin-filter.jpg",
-  "Transmission Filters":"transmission-filter.jpg",
-  "Hydraulic Filters":"heavy-duty-filter.jpg",
-  "DEF Filters":"heavy-duty-filter.jpg",
-  "Other Filters":"wix-logo.svg"
-};
 const $=id=>document.getElementById(id);
 const money=n=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(n);
 function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
 function js(s){return String(s).replace(/\\/g,"\\\\").replace(/'/g,"\\'")}
 function safeId(s){return String(s).replace(/[^a-zA-Z0-9]/g,"_")}
 
-function getImageForProduct(p){
-  const d=(p.description||"").toLowerCase();
-  const c=(p.category||"");
-  if(d.includes("cabin")) return d.includes("xp")?"cabin-xp-filter.jpg":"cabin-filter.jpg";
-  if(d.includes("transm")) return d.includes("kit")?"transmission-kit.jpg":"transmission-filter.jpg";
-  if(d.includes("fuel")) return "fuel-filter.jpg";
-  if(d.includes("air") && !d.includes("cabin")) return "air-filter.jpg";
-  if(d.includes("lube") || d.includes("oil")) return "oil-filter.jpg";
-  if(d.includes("hyd")) return "heavy-duty-filter.jpg";
-  return productImageByCategory[c] || "wix-logo.svg";
-}
+function wixCrossReferenceUrl(part){return `https://www2.wixfilters.com/Lookup/Exactmatch.aspx?PartNo=${encodeURIComponent(part)}`}
 
 async function init(){
   products=await fetch("products.json").then(r=>r.json());
@@ -369,13 +332,9 @@ function render(){
   $("summary").textContent=`Showing ${filtered.length.toLocaleString()} of ${products.length.toLocaleString()} WIX products. Customer pricing is from the SELL PRICE column.`;
   const root=$("grid");root.innerHTML="";
   filtered.forEach(p=>{
-    const img=getImageForProduct(p);
     const card=document.createElement("article");card.className="card";
     card.innerHTML=`
-      <div class="photo-wrap">
-        <div class="rep-badge">WIX STYLE IMAGE</div>
-        <img src="${img}" alt="${esc(p.part)}" onclick="showImage('${img}','${esc(p.part)} — ${esc(p.description)}')">
-      </div>
+      <div class="crossref-wrap"><a class="crossref-link" href="${wixCrossReferenceUrl(p.part)}" target="_blank" rel="noopener noreferrer" aria-label="Open official WIX cross-reference for ${esc(p.part)}">WIX CROSS-REFERENCE <span aria-hidden="true">↗</span></a></div>
       <div class="cardbody">
         <div class="cat">${esc(p.category)}</div>
         <div class="part">${esc(p.part)}</div>
@@ -416,8 +375,7 @@ function openCheckout(){
   if(!Object.keys(cart).length){alert("Add at least one product to your cart.");return}
   $("drawer").classList.remove("open");$("checkoutModal").classList.add("show");$("overlay").classList.add("show");
 }
-function closeAll(){$("drawer").classList.remove("open");$("checkoutModal").classList.remove("show");$("imageModal").classList.remove("show");$("overlay").classList.remove("show")}
-function showImage(src,title){$("largeImage").src=src;$("imageTitle").textContent=title;$("imageModal").classList.add("show");$("overlay").classList.add("show")}
+function closeAll(){$("drawer").classList.remove("open");$("checkoutModal").classList.remove("show");$("overlay").classList.remove("show")}
 
 async function submitOrder(e){
   e.preventDefault();

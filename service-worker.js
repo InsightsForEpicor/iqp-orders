@@ -1,5 +1,5 @@
-const CACHE="iqp-v7-web-1";
-const CORE=["./","index.html","products.json","manifest.webmanifest","iqp-logo.jpg","wix-logo.svg","air-filter.jpg","fuel-filter.jpg","oil-filter.jpg","cabin-filter.jpg","cabin-xp-filter.jpg","transmission-filter.jpg","transmission-kit.jpg","heavy-duty-filter.jpg"];
+const CACHE="iqp-v7-cross-reference-2";
+const CORE=["./","index.html","products.json","manifest.webmanifest","iqp-logo.jpg","wix-logo.svg"];
 self.addEventListener("install",event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting())));
 self.addEventListener("activate",event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
 self.addEventListener("fetch",event=>{if(event.request.method!=="GET")return;event.respondWith(fetch(event.request).then(response=>{const copy=response.clone();caches.open(CACHE).then(cache=>cache.put(event.request,copy));return response}).catch(()=>caches.match(event.request).then(response=>response||caches.match("index.html"))))});
