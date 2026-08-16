@@ -26,7 +26,7 @@ a{text-decoration:none;color:inherit}
 }
 .topbar{
   max-width:1450px;margin:0 auto;padding:12px 16px;
-  display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap
+  display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;position:relative
 }
 .brand{display:flex;gap:14px;align-items:center;min-width:280px}
 .brand img{width:78px;height:78px;object-fit:cover;border-radius:12px;border:2px solid #ad8831;background:#111}
@@ -180,7 +180,9 @@ a{text-decoration:none;color:inherit}
   .toolbar{grid-template-columns:1fr 200px 150px}
 }
 @media(max-width:720px){
-  .topbar{align-items:flex-start}
+  .topbar{align-items:flex-start;padding-top:14px}
+  .brand{padding-right:82px;min-width:0}
+  .header-cart{position:absolute;top:18px;right:16px;padding:9px 11px;font-size:11px;box-shadow:0 4px 16px rgba(0,0,0,.4)}
   .brand img{width:64px;height:64px}
   .brandtext h1{font-size:22px}
   .contactbar{font-size:11px;gap:8px;justify-content:flex-start}
@@ -205,10 +207,10 @@ a{text-decoration:none;color:inherit}
     </div>
     <div class="contactbar">
       <a class="contactpill" href="tel:+17863551606" aria-label="Call International Quality Parts at 786-355-1606"><b>Phone:</b> 786-355-1606</a>
-      <a class="contactpill" href="https://maps.apple.com/?q=4330%20E%2010th%20Ct%2C%20Hialeah%2C%20FL%2033013" target="_blank" rel="noopener noreferrer" aria-label="Open International Quality Parts address in Maps"><b>Address:</b> 4330 E 10th Ct, Hialeah, FL 33013</a>
+      <a class="contactpill" href="maps://?q=4330%20E%2010th%20Ct%2C%20Hialeah%2C%20FL%2033013" aria-label="Open International Quality Parts address in Apple Maps"><b>Address:</b> 4330 E 10th Ct, Hialeah, FL 33013</a>
       <span class="contactpill"><a href="mailto:internationalqualityparts@gmail.com" aria-label="Email International Quality Parts"><b>Email:</b> internationalqualityparts@gmail.com</a> <button class="copy-email" type="button" onclick="copyEmail(event)" aria-label="Copy email address">Copy</button></span>
-      <button class="header-cart" type="button" onclick="openCart()" aria-label="Open shopping cart">CART <span id="headerCartCount">0</span></button>
     </div>
+    <button class="header-cart" type="button" onclick="openCart()" aria-label="Open shopping cart">CART <span id="headerCartCount">0</span></button>
   </div>
   <div class="goldline"></div>
 </header>
