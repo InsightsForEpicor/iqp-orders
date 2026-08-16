@@ -1,4 +1,4 @@
-const CACHE="iqp-v7-cross-reference-2";
+const CACHE="iqp-v7-cross-reference-logo-3";
 const CORE=["./","index.html","products.json","manifest.webmanifest","iqp-logo.jpg","wix-logo.svg"];
 self.addEventListener("install",event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting())));
 self.addEventListener("activate",event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
