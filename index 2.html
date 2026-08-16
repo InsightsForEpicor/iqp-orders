@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111111">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="IQP Orders">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="iqp-logo.jpg">
+<link rel="apple-touch-icon" href="iqp-logo.jpg">
+<title>International Quality Parts | WIX Stock Order Portal</title>
+<style>
+:root{
+  --black:#0d0d0f;--gold:#d5a217;--gold2:#f0c650;--red:#b5121b;--soft:#f4f4f6;
+  --white:#fff;--line:#dddddf;--text:#171717;--muted:#666;--card:#ffffff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#ececef 0%,#f5f5f7 240px,#f4f4f6 100%);color:var(--text)}
+a{text-decoration:none;color:inherit}
+.header{
+  background:linear-gradient(180deg,#050506 0%,#111114 75%);
+  color:#fff;
+  box-shadow:0 4px 18px rgba(0,0,0,.25);
+  position:sticky;top:0;z-index:50
+}
+.topbar{
+  max-width:1450px;margin:0 auto;padding:12px 16px;
+  display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap
+}
+.brand{display:flex;gap:14px;align-items:center;min-width:280px}
+.brand img{width:78px;height:78px;object-fit:cover;border-radius:12px;border:2px solid #ad8831;background:#111}
+.brandtext h1{margin:0;font-size:28px;line-height:1;font-weight:900;letter-spacing:.4px}
+.brandtext div{margin-top:6px;font-size:12px;color:#ebd187;text-transform:uppercase;letter-spacing:2px;font-weight:700}
+.contactbar{display:flex;gap:18px;flex-wrap:wrap;justify-content:flex-end;font-size:13px}
+.contactpill{padding:9px 12px;border:1px solid #3a3a3f;border-radius:999px;background:#141418}
+.contactpill b{color:var(--gold2)}
+.goldline{height:4px;background:linear-gradient(90deg,var(--gold) 0%,var(--gold2) 50%,var(--gold) 100%)}
+
+.hero{
+  background:
+    radial-gradient(circle at 90% 15%, rgba(213,162,23,.22), transparent 20%),
+    radial-gradient(circle at 10% 0%, rgba(181,18,27,.22), transparent 25%),
+    linear-gradient(135deg,#090909 0%,#151518 50%,#0c0c0d 100%);
+  color:#fff;
+  overflow:hidden
+}
+.herowrap{
+  max-width:1450px;margin:0 auto;padding:28px 16px 26px;
+  display:grid;grid-template-columns:1.3fr .9fr;gap:22px;align-items:stretch
+}
+.hero-left{
+  position:relative;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:22px;
+  padding:26px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)),
+    linear-gradient(120deg, rgba(213,162,23,.13), transparent 28%);
+}
+.wixtag{display:inline-block;background:#c61b23;color:#fff;padding:8px 14px;border-radius:999px;font-weight:900;font-size:12px;letter-spacing:1px}
+.hero-left h2{margin:14px 0 8px;font-size:42px;line-height:1.05}
+.hero-left p{max-width:760px;font-size:16px;color:#ececec;line-height:1.55;margin:0 0 18px}
+.bullets{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.bullet{
+  border:1px solid rgba(255,255,255,.11);border-radius:14px;padding:12px;background:rgba(255,255,255,.04)
+}
+.bullet b{display:block;color:#f2cb58;margin-bottom:4px}
+.hero-right{display:grid;gap:12px}
+.info-card{
+  border-radius:18px;padding:16px;background:#ffffff;color:#171717;border:1px solid #ddd;
+  box-shadow:0 4px 20px rgba(0,0,0,.08)
+}
+.info-card h3{margin:0 0 8px;font-size:18px}
+.info-card p{margin:0;font-size:14px;color:#555;line-height:1.45}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mini{
+  border:1px solid #ececec;border-radius:14px;padding:14px;background:linear-gradient(180deg,#fff,#f8f8fa)
+}
+.mini .label{font-size:11px;font-weight:900;color:#a27b00;letter-spacing:1px;text-transform:uppercase}
+.mini .big{font-size:15px;font-weight:900;margin:4px 0 3px}
+.mini .small{font-size:12px;color:#666;line-height:1.35}
+
+.toolbar{
+  max-width:1450px;margin:16px auto 0;padding:0 16px;
+  display:grid;grid-template-columns:1fr 220px 170px;gap:12px
+}
+.search,.select,.cartbtn,input,textarea,button{font:inherit}
+.search,.select{
+  border:1px solid #cfcfd4;border-radius:12px;padding:13px 14px;background:#fff
+}
+.cartbtn{
+  border:0;border-radius:12px;background:linear-gradient(180deg,#c91f29,#a80e17);color:#fff;font-weight:900;cursor:pointer;padding:13px 16px
+}
+.note{
+  max-width:1450px;margin:10px auto 8px;padding:0 16px;font-size:13px;color:#555
+}
+.note b{color:#111}
+.summary{
+  max-width:1450px;margin:0 auto;padding:0 16px 8px;color:#555;font-size:14px
+}
+.grid{
+  max-width:1450px;margin:0 auto;padding:8px 16px 120px;display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(305px,1fr));gap:14px
+}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;
+  box-shadow:0 3px 16px rgba(0,0,0,.06);display:flex;flex-direction:column
+}
+.fitment-wrap{padding:15px;background:linear-gradient(135deg,#171719,#09090a);border-bottom:4px solid var(--gold)}
+.fitment-link{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#fff;border:1px solid #45454a;border-radius:12px;padding:13px 14px;font-size:13px;font-weight:900;transition:.15s}
+.fitment-link:hover{border-color:var(--gold2);background:#222226}.fitment-link span{color:var(--gold2);font-size:18px}
+.cardbody{padding:14px}
+.cat{font-size:11px;color:#9a7700;font-weight:900;letter-spacing:1px;text-transform:uppercase}
+.part{font-size:21px;font-weight:900;margin:5px 0 6px}
+.desc{font-size:13px;color:#585858;min-height:34px;line-height:1.35}
+.price{font-size:21px;font-weight:900;margin:8px 0 6px;color:#111}
+.avail{font-size:11px;color:#727272}
+.buyrow{display:grid;grid-template-columns:78px 1fr;gap:8px;margin-top:10px}
+.qty{width:100%;padding:10px 6px;border:1px solid #bbb;border-radius:9px;text-align:center;background:#fff}
+.add{border:0;border-radius:9px;background:#111;color:#fff;font-weight:900;cursor:pointer}
+
+.drawer{position:fixed;right:-540px;top:0;width:min(540px,100%);height:100vh;background:#fff;z-index:100;box-shadow:-10px 0 34px rgba(0,0,0,.25);transition:.25s;display:flex;flex-direction:column}
+.drawer.open{right:0}
+.drawhead{padding:18px;background:#111;color:#fff;display:flex;justify-content:space-between;align-items:center}
+.drawhead small{display:block;color:#d8d8d8;margin-top:3px}
+.x{border:0;background:transparent;color:#fff;font-size:26px;cursor:pointer}
+.cartitems{padding:12px;overflow:auto;flex:1}
+.cartline{
+  display:grid;grid-template-columns:1fr 70px 90px 28px;gap:8px;align-items:center;border-bottom:1px solid #eee;padding:10px 0
+}
+.cartline small{color:#666}
+.cartline input{width:100%;padding:7px;border:1px solid #bbb;border-radius:7px}
+.remove{border:0;background:transparent;color:#b5121b;font-size:20px;cursor:pointer}
+.cartfoot{border-top:1px solid #ddd;padding:14px}
+.totalrow{display:flex;justify-content:space-between;font-size:22px;font-weight:900;margin-bottom:10px}
+.checkout{width:100%;background:linear-gradient(180deg,#f0c650,#d3a118);border:0;padding:14px;border-radius:10px;font-weight:900;cursor:pointer}
+
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.62);z-index:90;display:none}
+.overlay.show{display:block}
+.modal{
+  position:fixed;z-index:120;inset:5vh auto auto 50%;transform:translateX(-50%);
+  width:min(780px,95vw);max-height:90vh;overflow:auto;background:#fff;border-radius:18px;
+  box-shadow:0 20px 70px rgba(0,0,0,.45);display:none
+}
+.modal.show{display:block}
+.modalhead{padding:16px 20px;background:#111;color:#fff;display:flex;justify-content:space-between;align-items:center}
+.modalbody{padding:18px}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field label{display:block;font-weight:700;font-size:12px;margin-bottom:4px}
+.field input,.field textarea{width:100%;padding:11px;border:1px solid #bbb;border-radius:8px}
+.wide{grid-column:1/-1}
+.send{width:100%;margin-top:15px;background:linear-gradient(180deg,#c91f29,#a80e17);color:#fff;border:0;padding:14px;border-radius:10px;font-weight:900;cursor:pointer}
+.status{padding:12px;border-radius:8px;margin-top:12px;display:none}
+.status.good{display:block;background:#e9f8ee;color:#176b31}
+.status.bad{display:block;background:#ffecee;color:#9a1320}
+.empty{text-align:center;color:#777;padding:35px 10px}
+.print-order{display:none}
+
+@media print{
+  html,body{background:#fff;color:#111}
+  body>*:not(.print-order){display:none!important}
+  .print-order{display:block!important;padding:18px;font-family:Arial,Helvetica,sans-serif}
+  .print-brand{display:flex;align-items:center;gap:16px;border-bottom:4px solid #d5a217;padding-bottom:12px;margin-bottom:18px}
+  .print-brand img{width:72px;height:72px;object-fit:cover;border-radius:9px}
+  .print-brand h1{font-size:22px;margin:0}.print-brand p{font-size:11px;margin:4px 0 0;color:#555}
+  .print-meta{display:grid;grid-template-columns:1fr 1fr;gap:5px 20px;font-size:12px;margin-bottom:18px}
+  .print-table{width:100%;border-collapse:collapse;font-size:11px}
+  .print-table th{background:#111;color:#fff;text-align:left}.print-table th,.print-table td{border:1px solid #bbb;padding:7px}
+  .print-table .num{text-align:right}.print-total{text-align:right;font-size:18px;font-weight:900;margin-top:14px}
+  .print-notes{margin-top:18px;font-size:12px}.print-disclaimer{margin-top:22px;color:#666;font-size:10px}
+}
+
+@media(max-width:980px){
+  .herowrap{grid-template-columns:1fr}
+  .toolbar{grid-template-columns:1fr 200px 150px}
+}
+@media(max-width:720px){
+  .topbar{align-items:flex-start}
+  .brand img{width:64px;height:64px}
+  .brandtext h1{font-size:22px}
+  .contactbar{font-size:11px;gap:8px;justify-content:flex-start}
+  .hero-left h2{font-size:31px}
+  .bullets,.info-grid,.toolbar,.formgrid{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr}
+  .wide{grid-column:auto}
+  .drawer{width:100%}
+  .cartline{grid-template-columns:1fr 62px 78px 25px}
+}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="topbar">
+    <div class="brand">
+      <img src="iqp-logo.jpg" alt="International Quality Parts logo">
+      <div class="brandtext">
+        <h1>International Quality Parts</h1>
+        <div>WIX Stock Order Portal</div>
+      </div>
+    </div>
+    <div class="contactbar">
+      <div class="contactpill"><b>Phone:</b> 786-355-1606</div>
+      <div class="contactpill"><b>Address:</b> 4330 E 10th Ct, Hialeah, FL 33013</div>
+      <div class="contactpill"><b>Email:</b> internationalqualityparts@gmail.com</div>
+    </div>
+  </div>
+  <div class="goldline"></div>
+</header>
+
+<section class="hero">
+  <div class="herowrap">
+    <div class="hero-left">
+      <div class="wixtag">WIX FILTERS PRODUCTS</div>
+      <h2>Taking Filtration Further</h2>
+      <p>
+        Order WIX filters from International Quality Parts using customer pricing from the uploaded SELL PRICE column.
+        Browse products, adjust quantities, and submit small or large stock orders with a PDF automatically generated at checkout.
+      </p>
+      <div class="bullets">
+        <div class="bullet"><b>Passenger Car & Light Truck</b><span>Oil, air, cabin air, fuel, and transmission filters.</span></div>
+        <div class="bullet"><b>Heavy Duty</b><span>Heavy-duty oil, air, fuel, cabin air, hydraulic, coolant, and transmission applications.</span></div>
+        <div class="bullet"><b>Industrial Filtration</b><span>Support for demanding industrial filtration needs.</span></div>
+        <div class="bullet"><b>Racing Products</b><span>Performance-oriented filtration solutions trusted in motorsports.</span></div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="info-card">
+        <h3>Built for easy ordering</h3>
+        <p>
+          Search by part number or description, open the official WIX application list, add quantities to your cart,
+          enter your company information, and submit the stock order.
+        </p>
+      </div>
+      <div class="info-grid">
+        <div class="mini">
+          <div class="label">Filter Finder</div>
+          <div class="big">Fast product lookup</div>
+          <div class="small">Use the search bar below to find WIX parts quickly by part number or description.</div>
+        </div>
+        <div class="mini">
+          <div class="label">Pricing</div>
+          <div class="big">Customer-visible SELL PRICE</div>
+          <div class="small">All prices displayed to customers come directly from the SELL PRICE column in your file.</div>
+        </div>
+        <div class="mini">
+          <div class="label">Checkout</div>
+          <div class="big">Company info required</div>
+          <div class="small">Customers enter company name, contact, phone, email, address, PO number, and notes.</div>
+        </div>
+        <div class="mini">
+          <div class="label">Order Delivery</div>
+          <div class="big">PDF order output</div>
+          <div class="small">Each order opens a print-ready document that can be saved as a PDF on any device.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="toolbar">
+  <input id="search" class="search" placeholder="Search WIX part number or description..." autocomplete="off">
+  <select id="category" class="select"><option value="">All filter types</option></select>
+  <button class="cartbtn" onclick="openCart()">Cart (<span id="cartCount">0</span>)</button>
+</section>
+
+<div class="note"><b>Applications:</b> Select “VIEW WIX APPLICATIONS” on any product to see its official make, model, year, and engine fitment information on the WIX Filters website.</div>
+<div class="summary" id="summary">Loading WIX price list…</div>
+<main class="grid" id="grid"></main>
+
+<div class="overlay" id="overlay" onclick="closeAll()"></div>
+
+<aside class="drawer" id="drawer">
+  <div class="drawhead">
+    <div><b>Stock Order Cart</b><small>International Quality Parts</small></div>
+    <button class="x" onclick="closeAll()">×</button>
+  </div>
+  <div class="cartitems" id="cartItems"></div>
+  <div class="cartfoot">
+    <div class="totalrow"><span>Total</span><span id="cartTotal">$0.00</span></div>
+    <button class="checkout" onclick="openCheckout()">ENTER COMPANY INFO & SUBMIT</button>
+  </div>
+</aside>
+
+<section class="modal" id="checkoutModal">
+  <div class="modalhead"><b>Customer / Company Information</b><button class="x" onclick="closeAll()">×</button></div>
+  <div class="modalbody">
+    <form id="checkoutForm">
+      <div class="formgrid">
+        <div class="field"><label>Company Name *</label><input name="company" required></div>
+        <div class="field"><label>Contact Name *</label><input name="contact" required></div>
+        <div class="field"><label>Phone *</label><input name="phone" required></div>
+        <div class="field"><label>Email *</label><input name="email" type="email" required></div>
+        <div class="field wide"><label>Company / Shipping Address *</label><input name="address" required></div>
+        <div class="field"><label>PO Number</label><input name="po"></div>
+        <div class="field" style="display:flex;align-items:end"><div style="font-size:12px;color:#666">After submitting, choose Save as PDF in your browser's print menu.</div></div>
+        <div class="field wide"><label>Order Notes</label><textarea name="notes" rows="3" placeholder="Special instructions, delivery notes, etc."></textarea></div>
+      </div>
+      <button class="send" type="submit">SUBMIT ORDER & SAVE PDF</button>
+      <div class="status" id="status"></div>
+    </form>
+  </div>
+</section>
+
+<section class="print-order" id="printOrder" aria-hidden="true"></section>
+
+<script>
+let products=[], filtered=[], cart={};
+const $=id=>document.getElementById(id);
+const money=n=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(n);
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function js(s){return String(s).replace(/\\/g,"\\\\").replace(/'/g,"\\'")}
+function safeId(s){return String(s).replace(/[^a-zA-Z0-9]/g,"_")}
+
+function wixApplicationsUrl(part){return `https://www2.wixfilters.com/Lookup/PartApplications.aspx?Part=${encodeURIComponent(part)}`}
+
+async function init(){
+  products=await fetch("products.json").then(r=>r.json());
+  [...new Set(products.map(p=>p.category))].sort().forEach(c=>{
+    const o=document.createElement("option");o.value=c;o.textContent=c;$("category").appendChild(o);
+  });
+  $("search").addEventListener("input",render);
+  $("category").addEventListener("change",render);
+  $("checkoutForm").addEventListener("submit",submitOrder);
+  render(); updateCart();
+}
+
+function render(){
+  const q=$("search").value.trim().toLowerCase(), cat=$("category").value;
+  filtered=products.filter(p=>(!cat||p.category===cat)&&(!q||p.part.toLowerCase().includes(q)||p.description.toLowerCase().includes(q)));
+  $("summary").textContent=`Showing ${filtered.length.toLocaleString()} of ${products.length.toLocaleString()} WIX products. Customer pricing is from the SELL PRICE column.`;
+  const root=$("grid");root.innerHTML="";
+  filtered.forEach(p=>{
+    const card=document.createElement("article");card.className="card";
+    card.innerHTML=`
+      <div class="fitment-wrap"><a class="fitment-link" href="${wixApplicationsUrl(p.part)}" target="_blank" rel="noopener noreferrer" aria-label="View official WIX applications for ${esc(p.part)}">VIEW WIX APPLICATIONS <span aria-hidden="true">↗</span></a></div>
+      <div class="cardbody">
+        <div class="cat">${esc(p.category)}</div>
+        <div class="part">${esc(p.part)}</div>
+        <div class="desc">${esc(p.description)}</div>
+        <div class="price">${money(p.price)}</div>
+        <div class="avail">${p.available==null?"Availability: call to confirm":"Price-list quantity available: "+p.available}</div>
+        <div class="buyrow">
+          <input class="qty" id="q_${safeId(p.part)}" type="number" min="1" value="1">
+          <button class="add" onclick="addToCart('${js(p.part)}')">ADD TO CART</button>
+        </div>
+      </div>`;
+    root.appendChild(card);
+  });
+}
+
+function addToCart(part){
+  const p=products.find(x=>x.part===part), q=Math.max(1,parseInt(document.getElementById("q_"+safeId(part)).value||"1"));
+  if(!cart[part]) cart[part]={...p,qty:0}; cart[part].qty+=q; saveCart(); updateCart();
+}
+function updateCart(){
+  const items=Object.values(cart); $("cartCount").textContent=items.reduce((a,x)=>a+x.qty,0);
+  $("cartTotal").textContent=money(items.reduce((a,x)=>a+x.qty*x.price,0));
+  const root=$("cartItems");root.innerHTML=items.length?"":"<div class='empty'>Your cart is empty.</div>";
+  items.forEach(x=>{
+    const row=document.createElement("div");row.className="cartline";
+    row.innerHTML=`<div><b>${esc(x.part)}</b><br><small>${esc(x.description)}</small></div>
+      <input type="number" min="1" value="${x.qty}" onchange="setQty('${js(x.part)}',this.value)">
+      <b>${money(x.qty*x.price)}</b><button class="remove" onclick="removeItem('${js(x.part)}')">×</button>`;
+    root.appendChild(row);
+  });
+}
+function saveCart(){localStorage.setItem("iqp-v7-cart",JSON.stringify(cart))}
+function restoreCart(){try{cart=JSON.parse(localStorage.getItem("iqp-v7-cart"))||{}}catch{cart={}}}
+function setQty(part,v){cart[part].qty=Math.max(1,parseInt(v||1));saveCart();updateCart()}
+function removeItem(part){delete cart[part];saveCart();updateCart()}
+function openCart(){$("drawer").classList.add("open");$("overlay").classList.add("show")}
+function openCheckout(){
+  if(!Object.keys(cart).length){alert("Add at least one product to your cart.");return}
+  $("drawer").classList.remove("open");$("checkoutModal").classList.add("show");$("overlay").classList.add("show");
+}
+function closeAll(){$("drawer").classList.remove("open");$("checkoutModal").classList.remove("show");$("overlay").classList.remove("show")}
+
+async function submitOrder(e){
+  e.preventDefault();
+  const btn=e.submitter, status=$("status");
+  btn.disabled=true; btn.textContent="PREPARING PDF...";
+  status.className="status"; status.textContent="";
+  const fd=new FormData(e.target);
+  const customer=Object.fromEntries(fd.entries());
+  const items=Object.values(cart).map(x=>({part:x.part,description:x.description,qty:x.qty,price:x.price}));
+  try{
+    if(!items.length) throw new Error("Your cart is empty.");
+    const now=new Date();
+    const orderNumber=`IQP-${now.getFullYear()}${String(now.getMonth()+1).padStart(2,"0")}${String(now.getDate()).padStart(2,"0")}-${String(now.getHours()).padStart(2,"0")}${String(now.getMinutes()).padStart(2,"0")}${String(now.getSeconds()).padStart(2,"0")}`;
+    const total=items.reduce((n,x)=>n+x.qty*x.price,0);
+    $("printOrder").innerHTML=`
+      <div class="print-brand"><img src="iqp-logo.jpg" alt="IQP"><div><h1>INTERNATIONAL QUALITY PARTS</h1><p>4330 E 10th Ct, Hialeah, FL 33013 · 786-355-1606 · internationalqualityparts@gmail.com</p></div></div>
+      <div class="print-meta"><b>Customer Stock Order</b><b>Order #: ${esc(orderNumber)}</b><span>Company: ${esc(customer.company)}</span><span>Date: ${esc(now.toLocaleString())}</span><span>Contact: ${esc(customer.contact)}</span><span>Phone: ${esc(customer.phone)}</span><span>Email: ${esc(customer.email)}</span><span>PO #: ${esc(customer.po||"")}</span><span>Address: ${esc(customer.address)}</span></div>
+      <table class="print-table"><thead><tr><th>Part #</th><th>Description</th><th class="num">Qty</th><th class="num">Unit Price</th><th class="num">Line Total</th></tr></thead><tbody>${items.map(x=>`<tr><td>${esc(x.part)}</td><td>${esc(x.description)}</td><td class="num">${x.qty}</td><td class="num">${money(x.price)}</td><td class="num">${money(x.qty*x.price)}</td></tr>`).join("")}</tbody></table>
+      <div class="print-total">ORDER TOTAL: ${money(total)}</div>${customer.notes?`<div class="print-notes"><b>Order Notes</b><br>${esc(customer.notes)}</div>`:""}<div class="print-disclaimer">This order request is subject to final availability and confirmation by International Quality Parts.</div>`;
+    document.title=`${orderNumber} - ${customer.company}`;
+    status.className="status good";status.innerHTML=`Order <b>${esc(orderNumber)}</b> is ready. Choose <b>Save as PDF</b> in the print menu.`;
+    setTimeout(()=>window.print(),100);
+  }catch(err){
+    status.className="status bad";
+    status.textContent=err.message;
+  } finally {
+    btn.disabled=false;
+    btn.textContent="SUBMIT ORDER & SAVE PDF";
+  }
+}
+restoreCart();init();
+if("serviceWorker" in navigator) window.addEventListener("load",()=>navigator.serviceWorker.register("service-worker.js"));
+</script>
+</body>
+</html>
