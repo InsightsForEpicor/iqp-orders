@@ -7,8 +7,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="IQP Orders">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="iqp-logo.jpg">
-<link rel="apple-touch-icon" href="iqp-logo.jpg">
+<link rel="icon" href="iqp-logo.png">
+<link rel="apple-touch-icon" href="iqp-logo.png">
 <title>International Quality Parts | WIX Stock Order Portal</title>
 <style>
 :root{
@@ -201,7 +201,7 @@ a{text-decoration:none;color:inherit}
 <header class="header">
   <div class="topbar">
     <div class="brand">
-      <img src="iqp-logo.jpg" alt="International Quality Parts logo">
+      <img src="iqp-logo.png" alt="International Quality Parts logo">
       <div class="brandtext">
         <h1>International Quality Parts</h1>
         <div>WIX Stock Order Portal</div>
@@ -412,7 +412,7 @@ async function submitOrder(e){
     const orderNumber=`IQP-${now.getFullYear()}${String(now.getMonth()+1).padStart(2,"0")}${String(now.getDate()).padStart(2,"0")}-${String(now.getHours()).padStart(2,"0")}${String(now.getMinutes()).padStart(2,"0")}${String(now.getSeconds()).padStart(2,"0")}`;
     const total=items.reduce((n,x)=>n+x.qty*x.price,0);
     $("printOrder").innerHTML=`
-      <div class="print-brand"><img src="iqp-logo.jpg" alt="IQP"><div><h1>INTERNATIONAL QUALITY PARTS</h1><p>4330 E 10th Ct, Hialeah, FL 33013 · 786-355-1606 · internationalqualityparts@gmail.com</p></div></div>
+      <div class="print-brand"><img src="iqp-logo.png" alt="IQP"><div><h1>INTERNATIONAL QUALITY PARTS</h1><p>4330 E 10th Ct, Hialeah, FL 33013 · 786-355-1606 · internationalqualityparts@gmail.com</p></div></div>
       <div class="print-meta"><b>Customer Stock Order</b><b>Order #: ${esc(orderNumber)}</b><span>Company: ${esc(customer.company)}</span><span>Date: ${esc(now.toLocaleString())}</span><span>Contact: ${esc(customer.contact)}</span><span>Phone: ${esc(customer.phone)}</span><span>Email: ${esc(customer.email)}</span><span>PO #: ${esc(customer.po||"")}</span><span>Address: ${esc(customer.address)}</span></div>
       <table class="print-table"><thead><tr><th>Line</th><th>Part #</th><th>Description</th><th class="num">Qty</th><th class="num">Unit Price</th><th class="num">Line Total</th></tr></thead><tbody>${items.map(x=>`<tr><td>${esc(x.brand)}</td><td>${esc(x.part)}</td><td>${esc(x.description)}</td><td class="num">${x.qty}</td><td class="num">${money(x.price)}</td><td class="num">${money(x.qty*x.price)}</td></tr>`).join("")}</tbody></table>
       <div class="print-total">ORDER TOTAL: ${money(total)}</div>${customer.notes?`<div class="print-notes"><b>Order Notes</b><br>${esc(customer.notes)}</div>`:""}<div class="print-disclaimer">This order request is subject to final availability and confirmation by International Quality Parts.</div>`;
