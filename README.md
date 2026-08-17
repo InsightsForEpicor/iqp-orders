@@ -4,7 +4,7 @@ Static GitHub Pages order portal with:
 
 - Intro page for choosing WIX or WAI.
 - 954 WIX products and official WIX cross-reference links.
-- 6,469 WAI products imported from `WAI_Kevin_20_Converted(1).xlsx`.
+- 6,469 WAI products imported from `WAI_Kevin_20_Converted(1).xlsx`, each linked to its exact WAI Global product page.
 - Separate matching catalog pages.
 - One browser-stored cart shared across both product lines.
 - Combined checkout and PDF order showing each item's product line.

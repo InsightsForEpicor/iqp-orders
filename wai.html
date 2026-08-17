@@ -240,7 +240,7 @@ a{text-decoration:none;color:inherit}
       <div class="info-card">
         <h3>Built for easy ordering</h3>
         <p>
-          Search by item number or description, open the official WAI product search, add quantities to your shared cart,
+          Search by item number or description, open the exact official WAI product page, add quantities to your shared cart,
           enter your company information, and submit the stock order.
         </p>
       </div>
@@ -276,7 +276,7 @@ a{text-decoration:none;color:inherit}
   <button class="cartbtn" onclick="openCart()">Cart (<span id="cartCount">0</span>)</button>
 </section>
 
-<div class="note"><b>WAI lookup:</b> Select “SEARCH WAI” on any item to open WAI Global's official product search.</div>
+<div class="note"><b>WAI product details:</b> Select “VIEW WAI PRODUCT” on any item to open its exact official WAI page with product information and images.</div>
 <div class="summary" id="summary">Loading WAI price list…</div>
 <main class="grid" id="grid"></main>
 <div class="load-wrap"><button id="loadMore" class="load-more" type="button" onclick="loadMore()">LOAD MORE PRODUCTS</button></div>
@@ -326,7 +326,7 @@ function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",
 function js(s){return String(s).replace(/\\/g,"\\\\").replace(/'/g,"\\'")}
 function safeId(s){return String(s).replace(/[^a-zA-Z0-9]/g,"_")}
 
-function waiProductUrl(){return "https://www.waiglobal.com/"}
+function waiProductUrl(part){return `https://www.waiglobal.com/us_en/wai-${encodeURIComponent(String(part).toLowerCase())}.html`}
 
 async function init(){
   products=await fetch("wai-products.json?v=20260817-wai-6469",{cache:"no-store"}).then(r=>r.json());
@@ -348,7 +348,7 @@ function render(){
   visible.forEach(p=>{
     const card=document.createElement("article");card.className="card";
     card.innerHTML=`
-      <div class="crossref-wrap"><a class="crossref-link" href="${waiProductUrl()}" target="_blank" rel="noopener noreferrer" aria-label="Search WAI Global for ${esc(p.part)}">SEARCH WAI <span aria-hidden="true">↗</span></a></div>
+      <div class="crossref-wrap"><a class="crossref-link" href="${waiProductUrl(p.part)}" target="_blank" rel="noopener noreferrer" aria-label="View official WAI product page for ${esc(p.part)}">VIEW WAI PRODUCT <span aria-hidden="true">↗</span></a></div>
       <div class="cardbody">
         <div class="cat">${esc(p.category)}</div>
         <div class="part">${esc(p.part)}</div>

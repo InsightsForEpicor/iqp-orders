@@ -1,4 +1,4 @@
-const CACHE="iqp-wix-wai-new-logo-2";
+const CACHE="iqp-wai-direct-product-links-3";
 const CORE=["./","index.html","wix.html","wai.html","products.json","wai-products.json","manifest.webmanifest","iqp-logo.png","wix-logo.svg"];
 self.addEventListener("install",event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting())));
 self.addEventListener("activate",event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
