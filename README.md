@@ -1,7 +1,12 @@
-# International Quality Parts — Web V7
+# IQP WIX + WAI Order Portal
 
-Browser version of the V7 WIX Stock Order Portal. It preserves the black, gold, and red program interface, IQP/WIX branding, and the full 954-item catalog with SELL PRICE. Product pictures are removed. Each item links directly to the official WIX cross-reference lookup for that exact part number.
+Static GitHub Pages order portal with:
 
-Orders remain on the customer's device. At checkout, the browser opens a print-ready order; choose **Save as PDF**. No email is sent automatically.
+- Intro page for choosing WIX or WAI.
+- 954 WIX products and official WIX cross-reference links.
+- 6,469 WAI products imported from `WAI_Kevin_20_Converted(1).xlsx`.
+- Separate matching catalog pages.
+- One browser-stored cart shared across both product lines.
+- Combined checkout and PDF order showing each item's product line.
 
-For GitHub Pages, upload every file in this folder to the repository root and publish the `main` branch from `/(root)`.
+Upload every file in this package to the GitHub repository root and publish `main` from `/(root)`.
